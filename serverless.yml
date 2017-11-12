@@ -1,0 +1,40 @@
+service: alexa-google-assistant-skill
+frameworkVersion: ">=1.4.0 <2.0.0"
+provider:
+  name: aws
+  runtime: nodejs6.10
+  memorySize: 512
+  iamRoleStatements:
+    -  Effect: "Allow"
+       Action:
+         - "s3:ListBucket"
+       Resource:
+         Fn::Join: ["", ["arn:aws:s3:::", Ref: SpeechStorage]]
+    -  Effect: "Allow"
+       Action:
+          - "s3:PutObject"
+          - "s3:GetObject"
+       Resource:
+         Fn::Join: ["", ["arn:aws:s3:::", Ref: SpeechStorage, "/*"]]
+    - Effect: Allow
+      Action:
+        - polly:SynthesizeSpeech
+      Resource: "*"
+resources:
+  Resources: ${file(./cloudformation-template.yaml):Resources}
+  Outputs: ${file(./cloudformation-template.yaml):Outputs}
+functions:
+  googleAssistant:
+    memorySize: 1536
+    timeout: 12
+    handler: handler.googleAssistant
+    environment:
+      S3_BUCKET:
+        Ref: SpeechStorage
+      API_ENDPOINT: 'embeddedassistant.googleapis.com'
+      GOOGLE_CLIENT_ID: ${file(./serverless.env.yaml):GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${file(./serverless.env.yaml):GOOGLE_CLIENT_SECRET}
+      REDIRECT_URL: ${file(./serverless.env.yaml):REDIRECT_URL}
+    events:
+      - alexaSkill
+

@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  SpeechStorage:
+    Type: "AWS::S3::Bucket"
+    Properties:
+       LifecycleConfiguration:
+         Rules:
+           -
+             ExpirationInDays: 1
+             Status: "Enabled"
+Outputs:
+  SpeechStorageBucketName:
+    Description: The bucket name that holds speech storage.
+    Value:
+      Ref: SpeechStorage

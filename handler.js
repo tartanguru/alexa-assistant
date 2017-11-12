@@ -30,8 +30,8 @@ const blank_audio_long = Buffer.alloc(80000,0);
 // Get Google Credentials from Evironment Variables - these are set in the Lambda function configuration
 
 const VERSION_NUMBER = '1.1';
-var CLIENT_ID = process.env.CLIENT_ID;
-var CLIENT_SECRET = process.env.CLIENT_SECRET;
+var CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+var CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 var REDIRECT_URL = process.env.REDIRECT_URL;
 var API_ENDPOINT = process.env.API_ENDPOINT;
 var S3_BUCKET = process.env.S3_BUCKET;
@@ -87,28 +87,23 @@ var handlers = {
         }
         
         if (!this.event.session.user.accessToken) {
-            
-                      
             this.emit(':tellWithLinkAccountCard', "You must link your Google account to use this skill. Please use the link in the Alexa app to authorise your Google Account.");
-        
         } else {
-       
-       //authenticate(session.user.accessToken);
-        this.emit(':ask', "How may I help?");      
-        };
-        
+            //authenticate(session.user.accessToken);
+            this.emit(':ask', "How may I help?");
+        }
     },
 
     'SearchIntent': function (overrideText) {
         
-        console.log('Starting Search Intent')
+        console.log('Starting Search Intent');
         
         
         // Function variables
         var setupStart = new Date().getTime();
         var encodeStart;
         var encodeTotal;
-        var pollyStart
+        var pollyStart;
         var pollyTotal;
         var audioSendStart;
         var audioSendTotal;
@@ -206,7 +201,7 @@ var handlers = {
         
         } else {
                  
-            console.log('Starting Google Assistant')
+            console.log('Starting Google Assistant');
             // console.log(ACCESS_TOKEN);
 
             // authenticate against OAuth using session accessToken
@@ -234,8 +229,7 @@ var handlers = {
             //Deal with errors from Google API
             // These aren't necessarily all bad unless they are fatal
             conversation.on('error', err => {
-              console.log('***There was a Google error**' + err);
-
+              console.log('***There was a Google error**', err);
             });
             
             conversation.on('end', () => {
@@ -268,8 +262,8 @@ var handlers = {
 
                     // have a short pause until exiting
                     wait(0.1, 'seconds', function() {
-                        console.log('Emiting blank sound')
-                        searchFunction.emit(':tell'," ")
+                        console.log('Emiting blank sound');
+                        searchFunction.emit(':tell'," ");
                     });
                 }
                 
@@ -281,7 +275,7 @@ var handlers = {
  
             console.log("Creating Audio config");
             console.log('Current ConversationState is');
-            console.log(conversation_State);
+            console.log(conversation_State.toString());
             
 
             var audioSetupConfig;
@@ -335,7 +329,7 @@ var handlers = {
                         
                         
                         const parts = Math.ceil(chunk.length / CHUNK_SIZE);
-                        console.log('chunk length is ' + chunk.length)
+                        console.log('chunk length is ' + chunk.length);
                         console.log("Parts = " + parts);
                         const partLength = CHUNK_SIZE/32000;    
 
@@ -351,7 +345,7 @@ var handlers = {
                                     sendTimedData (chunk, CHUNK_SIZE, count, converseStream);
                                 });
                             }
-                        })
+                        });
                         next();
                 };
                 audioPipe.on('end', () => {
@@ -359,7 +353,7 @@ var handlers = {
                     converseStream.end();
                 });
                 return audioPipe;
-            }
+            };
             
             // Save total setup time in milliseconds
             setupTotal = new Date().getTime() - setupStart;
@@ -377,27 +371,27 @@ var handlers = {
             sendingAudio = true;
             
             const params = {
-                                'Text': alexaUtteranceText,
-                                'OutputFormat': 'pcm',
-                                'VoiceId': POLLY_VOICE,
-                                'SampleRate': '16000',
-                                'TextType': 'text',
-                            }
-            
+                'Text': alexaUtteranceText,
+                'OutputFormat': 'pcm',
+                'VoiceId': POLLY_VOICE,
+                'SampleRate': '16000',
+                'TextType': 'text',
+            };
+
             // If utterance is 'stop' then we will send pre-recorded polly audio to reduce AWS charges
-            if (alexaUtteranceText == "STOP"){
+            if (alexaUtteranceText === "STOP"){
                 console.log('Send stop command pcm');
                 var readStop = fs.createReadStream('./stop.pcm');
                 readStop.pipe(audioRequestStream);
  
             // 'cancel' command
-            } else if (alexaUtteranceText == "CANCEL"){
+            } else if (alexaUtteranceText === "CANCEL"){
                 console.log('Send cancel command pcm');
                 var readCancel = fs.createReadStream('./cancel.pcm');
                 readCancel.pipe(audioRequestStream);
                 
             // 'exit' command
-            } else if (alexaUtteranceText == "exit"){
+            } else if (alexaUtteranceText === "exit"){
                 console.log('Send exit command pcm');
                 var readExit = fs.createReadStream('./exit.pcm');
                 readExit.pipe(audioRequestStream);
@@ -407,7 +401,7 @@ var handlers = {
             
                 var pollyAudio = Polly.synthesizeSpeech(params, (err, data) => {
                     if (err) {
-                        console.log('There was a polly error' + err.code)
+                        console.log('There was a polly error: ' + err.code, err)
                     } else if (data) {
                         if (data.AudioStream instanceof Buffer) {
                             // Initiate the source
@@ -466,12 +460,12 @@ var handlers = {
                                 console.log('keeping microphone open');
                             } 
                         }
-                        if (ConverseResponse.result.conversation_state){
-                            if (ConverseResponse.result.conversation_state.length > 0 ){
+                        if (ConverseResponse.result.conversation_state) {
+                            if (ConverseResponse.result.conversation_state.length > 0 ) {
                                 conversation_State = ConverseResponse.result.conversation_state;
                                 
                                 console.log('Conversation state changed');
-                                console.log('Conversation state var is:')
+                                console.log('Conversation state var is:', conversation_State)
                                 
                             }
                         }
@@ -507,7 +501,7 @@ var handlers = {
  
                 }
  
-            })
+            });
             
 
  
@@ -563,7 +557,7 @@ var handlers = {
                 // Log when MP3 file is written
                 writemp3.on('finish', function () {
                   console.log('mp3 has been written');
-                })
+                });
 
                 // Create LAME encoder instance
                 
@@ -589,22 +583,31 @@ var handlers = {
                 // Create function to upload MP3 file to S3 
                 function uploadFromStream(s3) {
                     var pass = new Stream.PassThrough();
-                    var params = {Bucket: S3_BUCKET, Key: S3_BUCKET, Body: pass};
+                    const filename = `response-${Date.now()}.mp3`;
+                    var params = {Bucket: S3_BUCKET, Key: filename, Body: pass};
                     s3.upload(params, function(err, data) {
-                        if (err){
-                        console.log('S3 upload error: ' + err) 
+                        if (err) {
                             searchFunction.emit(':tell', 'There was an error uploading to S3. Please ensure that the S3 Bucket name is correct in the environment variables and IAM permissions are set correctly');
-                            
-                        } else{
+                            console.log('There was an error uploading to S3 ' + err);
+
+                        } else {
                             // Upload has been sucessfull - we can know issue an alexa response based upon microphone state
                             uploadTotal = new Date().getTime() - uploadStart;
                             
                             var signedURL;
                             // create a signed URL to the MP3 that expires after 5 seconds - this should be plenty of time to allow alexa to load and cache mp3
-                            var signedParams = {Bucket: S3_BUCKET, Key: S3_BUCKET, Expires: 5, ResponseContentType: 'audio/mpeg'};
+                            var signedParams = {Bucket: S3_BUCKET, Key: filename, Expires: 20, ResponseContentType: 'audio/mpeg'};
+                            console.log('signed url params', signedParams);
+
                             s3.getSignedUrl('getObject', signedParams, function (err, url) {
-                                
+
+                                if (err) {
+                                    console.error('Get signed URL error', err);
+                                }
+
                                 if (url){
+                                    console.log('signed url successful', url);
+
                                     // ampersands are not valid in SSML so we need to escape these out with &amp;
                                     url = url.replace(/&/g, '&amp;'); // replace ampersands    
                                     signedURL = url;
@@ -625,15 +628,15 @@ var handlers = {
                                     'Audio Total Send Time was:      ' + audioSendTotal + 'ms\n' +
                                     'Response Wait time was:         ' + responseWaitTotal + 'ms\n' +
                                     'Encode Total time was:          ' + encodeTotal + 'ms\n' +
-                                    'Total Upload time was:          ' + uploadTotal + 'ms\n\n\n' 
+                                    'Total Upload time was:          ' + uploadTotal + 'ms\n\n\n' ;
 
                                     console.log(cardContent);
-                                    var cardTitle = 'Google Assistant Debug'
+                                    var cardTitle = 'Google Assistant Debug';
 
                                     var speechOutput = '<audio src="' + signedURL + '"/>'; 
                                     // If API has requested Microphone to stay open then will create an Alexa 'Ask' response
                                     if (microphoneOpen == true){
-                                        console.log('Microphone is open so keeping session open')                        
+                                        console.log('Microphone is open so keeping session open');
                                         console.log('Total runtime: ' + (new Date().getTime() - setupStart) );
                                         cardContent = cardContent + ('Total runtime: ' + (new Date().getTime() - setupStart) + 
                                         '\nMore detailed debug information can be found in the Cloud Watch logs' );
@@ -643,29 +646,29 @@ var handlers = {
                                             searchFunction.emit(':askWithCard', speechOutput, null, cardTitle, cardContent);
                                         } 
                                         else {
-                                            searchFunction.emit(':ask', speechOutput);    
+                                            console.log(':ask', speechOutput);
+                                            searchFunction.emit(':ask', speechOutput);
                                         }
                                     // Otherwise we create an Alexa 'Tell' command which will close the session
                                     } else{
-                                        console.log('Microphone is closed so closing session')
+                                        console.log('Microphone is closed so closing session');
                                         console.log('Total runtime: ' + (new Date().getTime() - setupStart) );
                                         cardContent = cardContent + ('Total runtime: ' + (new Date().getTime() - setupStart) +
                                         '\nMore detailed debug information can be found in the Cloud Watch logs' );
                                         if (DEBUG_MODE){
                                             searchFunction.emit(':tellWithCard', speechOutput, cardTitle, cardContent);
-                                        } 
-                                        else {
-                                        searchFunction.emit(':tell', speechOutput);
+                                        } else {
+                                            if (DEBUG_MODE) {
+                                                console.log(':tell', speechOutput);
+                                            }
+                                            searchFunction.emit(':tell', speechOutput);
                                         }
                                     }
                                 } else {
                                     searchFunction.emit(':tell', 'There was an error creating the signed URL. Please ensure that the S3 Bucket name is correct in the environment variables and IAM permissions are set correctly');
-                                } 
-                        });
-                            
-                            
-
-                      }
+                                }
+                            });
+                        }
                     });
                     return pass;
                 }

@@ -58,9 +58,7 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
-.env
-
+serverless.env.yaml
 
 # End of https://www.gitignore.io/api/node
 

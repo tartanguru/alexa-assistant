@@ -18,6 +18,8 @@
     "serverless": "1.24.1"
   },
   "scripts": {
+	"deploy": "npm run serverless deploy",
+	"sls": "f() { serverless ${@}; }; f",
 	"serverless": "f() { serverless ${@}; }; f",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

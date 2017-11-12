@@ -14,8 +14,11 @@
     "stream": "0.0.2",
     "wait-one-moment": "0.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "serverless": "1.24.1"
+  },
   "scripts": {
+	"serverless": "f() { serverless ${@}; }; f",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

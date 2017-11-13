@@ -37,4 +37,3 @@ functions:
       REDIRECT_URL: ${file(./serverless.env.yaml):REDIRECT_URL}
     events:
       - alexaSkill
-

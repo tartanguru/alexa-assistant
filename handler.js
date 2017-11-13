@@ -596,7 +596,7 @@ var handlers = {
                             
                             var signedURL;
                             // create a signed URL to the MP3 that expires after 5 seconds - this should be plenty of time to allow alexa to load and cache mp3
-                            var signedParams = {Bucket: S3_BUCKET, Key: filename, Expires: 20, ResponseContentType: 'audio/mpeg'};
+                            var signedParams = {Bucket: S3_BUCKET, Key: filename, Expires: 5, ResponseContentType: 'audio/mpeg'};
                             console.log('signed url params', signedParams);
 
                             s3.getSignedUrl('getObject', signedParams, function (err, url) {
@@ -728,7 +728,7 @@ var handlers = {
             
     },
     'AMAZON.CancelIntent' : function () {
-        console.log('Cancel Intent')
+        console.log('Cancel Intent');
         var message = 'CANCEL';
         if (microphoneOpen == true){
             this.emit('SearchIntent', message);

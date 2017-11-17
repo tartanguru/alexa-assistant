@@ -1,7 +1,7 @@
 'use strict';
 
 var Alexa = require('alexa-sdk');
-var google = require('./node_modules/googleapis');
+var google = require('googleapis');
 const AWS = require('aws-sdk');
 var fs = require('fs');
 var wait = require('wait-one-moment');

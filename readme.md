@@ -16,17 +16,20 @@ NOTE - this skill is built against the beta version of the Assistant API so it m
 The following features are **NOT** supported: -
 
 1. Alarms and timers. Use Alexa for these.
-2. Device location. If you have a Home address set in your google account then it will use that as a default. NOTE:- if you are in Europe and want weather forecasts in metric then just ask the assistant to "Change my units to Celsius".
-3. Playing music, news, or podcasts is not supported.
-4. Account linking for third party services requires owning a Google Home and installing the Google Home application. This affects using services like Uber, or connecting to home automation devices like Hue.
-5. Multiple Users are not supported - it will only use the Google account linked through the Alexa app
-9. Asking Google Assistant to change volume. You will need to ask Alexa directly.
+
+1. Device location. If you have a Home address set in your google account then it will use that as a default. NOTE:- if you are in Europe and want weather forecasts in metric then just ask the assistant to "Change my units to Celsius".
+
+1. Playing music, news, or podcasts is not supported.
+
+1. Account linking for third party services requires owning a Google Home and installing the Google Home application. This affects using services like Uber, or connecting to home automation devices like Hue.
+
+1. Multiple Users are not supported - it will only use the Google account linked through the Alexa app
+
+1. Asking Google Assistant to change volume. You will need to ask Alexa directly.
 
 A short demo of the skill in action is here:-
 
 [![Alt text](https://img.youtube.com/vi/KA3W6eR_6LY/0.jpg)](https://youtu.be/KA3W6eR_6LY)
-
-
 
 # KNOWN ISSUES
 
@@ -34,9 +37,9 @@ A short demo of the skill in action is here:-
 
 1. If you unlink the skill to your account and then re-enable it then the skill might keep asking for you to re-link every hour. You can resolve this by going to this page and removing the Alexa Skill https://myaccount.google.com/permissions?pli=1. Relink the skill via the alexa web app https://alexa.amazon.com You should then be able to relink the skill permanently.
 
-2. You will need to give Google Assistant access to the following features on your Google account. If you do not give access to these then the skill will not work and you it will tell you "There are some things I need to set up in the Google Home app first". (This is a Google policy not mine). If you are concerned about privacy, then you could use a new google account just for this skill and not login using this account elsewhere
+1. You will need to give Google Assistant access to the following features on your Google account. If you do not give access to these then the skill will not work and you it will tell you "There are some things I need to set up in the Google Home app first". (This is a Google policy not mine). If you are concerned about privacy, then you could use a new google account just for this skill and not login using this account elsewhere
 
-    1. Web & App Activity - Make sure the box marked "Include Chrome browsing history and activity from websites and apps that use Google Services" is also checked 
+    1. Web & App Activity - Make sure the box marked "Include Chrome browsing history and activity from websites and apps that use Google Services" is also checked
     2. Location History
     3. Device Information
     4. Voice & Audio Activity
@@ -49,17 +52,18 @@ A short demo of the skill in action is here:-
 
 7. Responses from the assistant are returned as audio. Alexa is limited, as part of an SSML spoken response, to playing back MP3 files that are less then 90 seconds. If the Assistant response is longer than this then it will be truncated.
 
-8. Audio quality. The skill has to convert the Assistant output into a 48kb/s MP3 for use with Alexa which means that the audio loses some fidelity in the process. 
+8. Audio quality. The skill has to convert the Assistant output into a 48kb/s MP3 for use with Alexa which means that the audio loses some fidelity in the process.
 
 
 ### SECURITY WARNING. In order for this skill to work the response from Google must be made available as a publicly accessible mp3 file. Rather than host this in an open AWS S3 bucket, the bucket and it’s contents are kept private but a temporary publicly signed URL is created by AWS which expires after 5 seconds. These URLs are unique and typically over 600 characters long (see example below). 
 
+```
 https://XXXXXXXXXXXXXXX.s3-eu-west-1.amazonaws.com/XXXXXXXXXXXXXXX?AWSAccessKeyId=ASXXXXXXXXXX6AVQQ&amp;Expires=1497107703&amp;Signature=BoNNOAcm0VhEVy9jcQqCeP9gkWw%3D&amp;response-content-type=audio%2Fmpeg&amp;x-amz-security-token=FQoDYXdzEI3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDHC4OE%2BjSG18yTrmnyLpAfoDMxG%2BWPPphnXnkTjw6SmFP8AulH1woW5ZkmrQn5zafK1Sbbv1S8L1n0GzJlRuV8vcT4fijUjek3zJ%2F0NJEYI18enHwyiERD0SXXXXXXXXXXXX%2F9gwI98rw8cKeK9VM1iqhDpPZZxkCJ0Xy0dWfNCe8vuP4j9ZQHMeuSESBU8WrjzXsvZGDn2b8HuenlEVJp0WaH68qUWBuJpGvEDmeAooD7hA%2Fr4XCm8ZS%2FZqa4i05QvbmRX8mjn8eRwgb%2FRBPS190IswaGoxOa9vgSXASRewWJfMjftjM6XXXXXXXXXXKL%2B878kF
+```
 
 ### In theory anyone who has the URL can access the response, however this URL never leaves the secure AWS skill environment so it cannot be hijacked/intercepted, and due to the very short 5 second period that the mp3 file is exposed via this single link, the chances of someone being able to undertake a brute force attack to find out the URL are statistically close to zero. The S3 bucket can be securely accessed from your AWS account at any time from https://console.aws.amazon.com/s3/
 
 ### IF THIS IS NOT ACCEPTABLE TO YOU THEN PLEASE DO NOT INSTALL THIS SKILL! 
-
 
 # AWS CHARGES
 This Skill uses AWS Polly and S3 which are normally charged on a pay as you go basis (this is charged by Amazon not me). There is a free trial tier of these for one year from first use and the resource usage of this skill *should* fall within the limits of this free tier but this will depend on how often you personally use the skill. After 12 months, or beyond those free limits, usage will be chargable. 
@@ -99,169 +103,54 @@ Richard Vowles for his Typescript based Google Assistant client which gave me so
 
 John JDuo, Pete Bready and Mark Riley for proof reading these installation instructions and testing beta versions.
 
-
 # SETUP INSTRUCTIONS (VIDEO)
 
 Paul Hibbert has created a rather fine set of installation instructions here:-
 
 [![Alt text](https://img.youtube.com/vi/2KzbJyTQTZE/0.jpg)](https://www.youtube.com/watch?v=2KzbJyTQTZE)
 
-
-
-
 # SETUP INSTRUCTIONS (TEXT)
 
 To run the skill you need to do a number of things: -
 
-1. download the file from GitHub.
-2. deploy the example code in Lambda.
+1. Clone this repository
+3. deploy the example code in Lambda.
 3. configure the Alexa skill to use Lambda.
 4. get an API key from Google.
 5. link skill to your Google Account.
 
-## Download code from GitHub
+## Clone this repository
 
-1. Click on the green "Clone or download" button just under the yellow bar.
-2. Click Download ZIP.
-3. Unzip the file (it will be called alexa-assistant-master.zip) to a known place on your hard-drive (suggest root of C: drive in Windows to avoid problems with long filenames).
+You may either clone this repository or for it if you would like to make modifications.
+
+```shell
+git clone git@github.com/grocky/alexa-assistant
+```
 
 ## AWS Lambda Setup (Part 1)
 
-1. Go to http://aws.amazon.com/. You will need to set-up an AWS account (the basic one will do fine) if you don't have one already. Make sure you use the same Amazon account that your Echo device is registered to. **Note - you will need a credit or debit card to set up an AWS account - there is no way around this. Please see the AWS Charges section above**
+If you do not have an account already, go to http://aws.amazon.com/. You will need to set-up an AWS account (the basic one will do fine) if you don't have one already. Make sure you use the same Amazon account that your Echo device is registered to. **Note - you will need a credit or debit card to set up an AWS account - there is no way around this. Please see the AWS Charges section above**
+Once your account is set, you will need to configure your environment with access keys. Follow this [Getting Started Guide](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) for steps to set up your environment.
 
-2.  Go to the drop down "Location" menu at the top right and ensure you select US-East (N. Virginia) if you are based in the US or EU(Ireland) if you are based in the UK or Germany. This is important as only these two regions support Alexa. NOTE: the choice of either US or EU is important as it will affect the results that you get. The EU node will provide answers in metric and will be much more UK focused, whilst the US node will be imperial and more US focused.
+In the project directory, run `npm install` to install all of the project dependencies.
 
-![alt text](screenshots/lambda_region.jpg)
+Copy the example environment variable file that will hold your secret credentials and configurations:
 
-1. Select Lambda from the AWS Services menu at the top left
-2. Click on the "Create a Lambda Function" or "Get Started Now" button.
-3. Select "Blank Function" - this will automatically take you to the "Configure triggers" page.
+```shell
+cp serverless.env.yaml.example serverless.env.yaml
+```
 
-![alt text](screenshots/blueprint.jpeg)
+We will fill this in later after setting up your Google and Alexa applications.
 
-4. Click the dotted box and select "Alexa Skills Kit" (NOTE - if you do not see Alexa Skill Kit as an option then you are in the wrong AWS region). 
+Let's deploy the lambda function now to ensure the environment is set up.
 
-![alt text](screenshots/triggers.jpeg)
+```
+npm run deploy
+```
 
-5. Click Next 
+This will establish a new cloudformation stack that will create the Lambda Function, S3 Buckets, and policies necessary for the Alexa skill.
 
-![alt text](screenshots/trigger_ASK.jpeg)
-
-5. Name the Lambda Function :-
-
-    ```
-    google-assistant
-    ```
-    
-5. Set the description as :-
-
-    ```
-    Google Assistant
-    ```
-    
-6. Select the default runtime which is currently "node.js 6.10".
-7. Select Code entry type as "Upload a .ZIP file". 
-
-![alt text](screenshots/lambda_1.jpeg)
-
-7. Click on the "Upload" button. Go to the folder where you unzipped the files you downloaded from GitHub, select index.zip and click open. Do not upload the alexa-assistant-master.zip you downloaded from GitHub - only the index.zip contained within it.
-
-7. You will need to create a random string to act as the name of the Amazon S3 bucket that will be used to store the MP3 response from the Google Assistant (see security note at the start of this readme). Open this page in a new tab or window and copy the random string that it produces: https://www.random.org/strings/?num=1&len=20&digits=on&loweralpha=on&unique=on&format=html&rnd=new.
-
-![alt text](screenshots/random.jpeg)
-
-8. Enter the following into the Environment Variables Section: -
-
-|Key           | Value|
-|--------------| -----|
-|S3_BUCKET|(paste in the random string from the previous step in here)|
-|CLIENT_SECRET|(leave blank for the moment)|
-|CLIENT_ID |(leave blank for the moment)|
-|API_ENDPOINT|embeddedassistant.googleapis.com|
-|REDIRECT_URL|(leave blank for the moment)|
-
-![alt text](screenshots/environment_variables.jpeg) 
-
-9. Keep the Handler as "index.handler" (this refers to the main js file in the zip).
-10. Under Role - select "Create a custom role". This will automatically open a new browser tab or window.
-
-![alt text](screenshots/new_role.jpeg)
-
-11. Switch to this new tab or window. 
-11. Under IAM Role select "Create a new IAM Role"
-11. Call the Role Name:-
-
-    ```
-    google_assistant
-    ```
-
-11. Click on "View Policy Document" - a grey box will appear.
-
-![alt text](screenshots/role_summary_1.jpeg)
-
-11. Click on "Edit" to the right hand side of the grey box.
-11. A warning message will appear - click "Ok"
-
-![alt text](screenshots/edit_warning.jpeg)
-
-11. Delete **ALL** the text in the box and paste in the following: -
-
-    ```
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Action": [
-                    "logs:CreateLogGroup",
-                    "logs:CreateLogStream",
-                    "logs:PutLogEvents"
-                ],
-                "Resource": [
-                    "arn:aws:logs:*:*:*",
-                    "arn:aws:lambda:*:*:*"
-                ]
-            },
-            {
-                "Effect": "Allow",
-                "Action": [
-                    "polly:SynthesizeSpeech"
-                ],
-                "Resource": [
-                    "*"
-                ]
-            },
-            {
-                "Effect": "Allow",
-                "Action": "s3:*",
-                "Resource": "*"
-            },
-            {
-                "Effect": "Allow",
-                "Action": "dynamodb:*",
-                "Resource": "*"
-            }
-        ]
-    }
-    ```
-11. Then press the blue "Allow" box at the bottom right hand corner. The tab/window will automatically close.
-11. You should now be back on the Lambda Management page. The Role box will have automatically changed to "existing" and Role we just created will be selected under the "Existing role" box.
-
-![Lambda Role selection](screenshots/existing_role.png)
-
-12. Under Advanced Settings set Memory (MB) to 1536 and change the Timeout to 12 seconds
-
-![alt text](screenshots/advanced_settings.jpeg)
-
-13. Click on the blue "Next" at the bottom of the page and review the settings then click "Create Function". This will upload the index.zip file to Lambda. This may take a number of minutes depending on your connection speed. **NOTE - If the creation process takes more than five minutes or produces an error similar to "Signature expired: 20170612T135832Z is now earlier than 20170612T142721Z (20170612T143221Z - 5 min.)" then this is due to having a slow internet upload speed.  You'll need to upload the zip file via S3 instead. Go here:- https://console.aws.amazon.com/s3/home. Create a bucket - call it whatever you want. You can then upload the index.zip to that S3 bucket. Once it's uploaded use the "Upload a file from S3" rather than the "Upload a zip " option in the Lambda setup.**
-
-![alt text](screenshots/review_function.jpeg)
-
-14. Copy the ARN from the top right to be used later in the Alexa Skill Setup (it's the text after ARN - it won't be in bold and will look a bit like this arn:aws:lambda:eu-west-1:XXXXXXX:function:google-assistant). Hint - Paste it into notepad or similar.
-
-![alt text](screenshots/ARN.jpeg)
-
-**Leave this tab/window OPEN as we will need to return to it to set some further environment variable values**
+> **TODO**: describe an easy way to find the lambda function ARN.
 
 ## Alexa Skill Setup (Part 1)
 

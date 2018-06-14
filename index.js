@@ -325,7 +325,7 @@ var handlers = {
         
         var overideLocale = 'en-US'
         console.log('Locale is:- ' + locale)
-        if (locale == 'en-GB' || locale == 'de-DE' || locale == 'en-AU' || locale == 'en-CA' || locale == 'en-IN' || locale == 'ja-JP'){
+        if (locale == 'en-GB' || locale == 'de-DE' || locale == 'en-AU' || locale == 'en-CA' || locale == 'en-IN' || locale == 'ja-JP' || locale == 'fr-FR'){
             overideLocale = locale
             
         }

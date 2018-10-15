@@ -54,7 +54,7 @@ If you have not installed the skill before then follow the instructions here:-
 
 Otherwise watch Paul Hibberts excellent installation video here:-
 
-[Installation video](https://www.youtube.com/watch?v=saN_N30kPc4)
+[Installation video](https://www.youtube.com/watch?v=oP3LDKa-MNQ)
 
 https://www.youtube.com/watch?v=saN_N30kPc4
 

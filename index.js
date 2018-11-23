@@ -325,8 +325,8 @@ var handlers = {
         
         var overideLocale = 'en-US'
         console.log('Locale is:- ' + locale)
-        if (locale == 'en-GB' || locale == 'de-DE' || locale == 'en-AU' || locale == 'en-CA' || locale == 'en-IN' || locale == 'ja-JP' || locale == 'fr-FR' || locale == 'it-IT'){
-            overideLocale = locale            
+        if (locale) {
+          overideLocale = locale         
         }
         console.log('Now locale is:- ' + overideLocale)
         var searchFunction = this

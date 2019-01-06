@@ -27,7 +27,7 @@ There is no way around this. If you don't want to give your credit card details 
 
 The skill software in this GitHub project is provided as open source so you are welcome to distribute and modify as per the [GNU General Public License v3.0](LICENSE)
 
-I do however have to pay the costs of hosting the cloudformation templates and zip files on AWS S3. As such the instructions for deploying this skill and the CloudFormation template linked within are now held in a seperate [GitHub project](https://github.com/tartanguru/alexa-assistant-instructions) which is licenced under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/)
+I do however have to pay the costs of hosting the cloudformation templates and zip files on AWS S3. As such the instructions for deploying this skill and the CloudFormation template linked within are now held in a separate [GitHub project](https://github.com/tartanguru/alexa-assistant-instructions) which is licenced under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/)
 
 If you wish to reproduce the installation instructions hosted on your own website (**I really wish you wouldn't as it makes my life very difficult to support and update the skill**) then you may do so and link to my Cloudformation template (and consequently the zips on my S3 buckets)  provided that there is no monetisation on the page e.g. adverts. If you do wish to have monetisation then you will need to create your own instructions and host your own Cloudformation template and associated zip files. 
 
@@ -37,7 +37,7 @@ NOTE: I have granted Paul Hibbert the rights to link to the Cloudformation for t
 
 # Upgrading from version 1 of the skill
 
-If you already have the original version of the skill which was installed manuallly WITHOUT using Cloudformation then please read the upgrade instructions here:-
+If you already have the original version of the skill which was installed manually WITHOUT using Cloudformation then please read the upgrade instructions here:-
 
 [Upgrade Instructions](https://github.com/tartanguru/alexa-assistant-instructions/blob/master/upgrade.md)
 
@@ -76,7 +76,7 @@ John JDuo, Pete Bready and Mark Riley for proof reading previous installation in
 
 # CAN I BUY YOU A BEER?
 
-Thanks but I'm not in it for the money nor do I drink beer, but if you do find this skill usefull then please consider making a small donation to Pancreatic Cancer UK who have helped my family recently:-
+Thanks but I'm not in it for the money nor do I drink beer, but if you do find this skill useful then please consider making a small donation to Pancreatic Cancer UK who have helped my family recently:-
 
 https://www.pancreaticcancer.org.uk/donate/single-donation/
 
@@ -85,9 +85,3 @@ If you are in the US then feel free to donate to the National Pancreatice Cancer
 http://www.npcf.us/donate/
 
 If you live elsewhere in the world then please donate a local cancer charity
-
-
-
-
-
-

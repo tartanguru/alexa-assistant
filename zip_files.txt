@@ -1,0 +1,4 @@
+proto/
+node_modules/
+speechAssets/
+index.js

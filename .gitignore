@@ -1,5 +1,24 @@
-./node_modules/
-index.zip
+# ignore certificates
+*.pem
+*.crt
+*.csr
+*.key
+*.p7b
 
+*.gz
 
-cloudformation.json
+# ignore .env
+.env
+**/.env
+
+# logs
+**.log
+**/logs/
+.project/
+.idea/
+
+# temp office files
+.~lock*
+
+node_modules/
+**/node_modules/*

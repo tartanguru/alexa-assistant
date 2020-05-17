@@ -15,8 +15,8 @@ var request = require('request');
 var xmlescape = require('xml-escape');
 
 // load native modules
-var lame = require('./lib/node_modules/lame');
-var grpc = require('./lib/node_modules/grpc')
+var lame = require('lame');
+var grpc = require('grpc')
 
 
 var OAuth2 = google.auth.OAuth2;
